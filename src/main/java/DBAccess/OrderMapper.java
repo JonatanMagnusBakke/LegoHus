@@ -20,17 +20,42 @@ import java.sql.Statement;
 public class OrderMapper {
     public static void createOrder(User user) throws LegoHouseException{
         try {
-            Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders set userid = ?;";
-            PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
-            ps.setInt( 1, user.getId() );
-            ps.executeUpdate();
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-            int id = ids.getInt( 1 );
-            user.setId( id );
+            String sql = "INSERT INTO orders set userid = ?;";
+            PreparedStatement userPstmt = Connector.connection().prepareStatement(sql);
+            userPstmt.setInt(1, user.getId());
+            userPstmt.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
             throw new LegoHouseException( ex.getMessage() );
         }
     }
+    
+    public static int getOrder(User user) throws LegoHouseException{
+        Statement stm;
+        try {
+            stm = Connector.connection().createStatement();
+            String sql = "SELECT id FROM orders WHERE currentStatus = 'Open' AND userid = "+user.getId() + ";";
+            ResultSet rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                throw new LegoHouseException( "Could not find Order" );
+            }
+        } catch ( ClassNotFoundException | SQLException ex ) {
+            throw new LegoHouseException(ex.getMessage());
+        }
+    }
+    
+    public static void createLineItem(int orderId) throws LegoHouseException{
+        try {
+            String sql = "";
+            PreparedStatement userPstmt = Connector.connection().prepareStatement(sql);
+            userPstmt.setInt(1, orderId);
+            userPstmt.executeUpdate();
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LegoHouseException( ex.getMessage() );
+        }
+    }
+    
+    
+    
 }
