@@ -7,6 +7,7 @@ package DBAccess;
 
 import FunctionLayer.LegoHouseException;
 import FunctionLayer.LineItem;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,6 +74,18 @@ public class OrderMapper {
             userPstmt.setInt(12, wBrick1);
             userPstmt.executeUpdate();
             }
+            
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LegoHouseException( ex.getMessage() );
+        }
+    }
+    
+    public static void closeOrder(User user) throws LegoHouseException{
+        try {
+            String sql = "UPDATE orders SET currentStatus = 'Ordered' WHERE userid = ?;";
+            PreparedStatement userPstmt = Connector.connection().prepareStatement(sql);
+            userPstmt.setInt(1, user.getId());
+            userPstmt.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
             throw new LegoHouseException( ex.getMessage() );
         }
@@ -89,6 +102,22 @@ public class OrderMapper {
                 lineItemList.add(new LineItem(rs.getInt("id"), rs.getString("side"), rs.getInt("floorLevel"), rs.getString("brickType"), rs.getInt("numberOfBricks")));
             }
             return lineItemList;
+        } catch ( ClassNotFoundException | SQLException ex ) {
+            throw new LegoHouseException(ex.getMessage());
+        }
+    }
+    
+    public static List<Order> getOrders()throws LegoHouseException{
+        List<Order> orderList = new ArrayList();
+        Statement stm;
+        try {
+            stm = Connector.connection().createStatement();
+            String sql = "SELECT * FROM orders";
+            ResultSet rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                orderList.add(new Order(rs.getInt("id"), rs.getInt("userid"), rs.getString("currentStatus")));
+            }
+            return orderList;
         } catch ( ClassNotFoundException | SQLException ex ) {
             throw new LegoHouseException(ex.getMessage());
         }

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class LegoHouseFactory {
     
-    public static void buildLegoHouse(User user, int length, int width, int height) throws LegoHouseException{
+    public static FloorLayOut buildLegoHouse(User user, int length, int width, int height) throws LegoHouseException{
         int lbrick4 = length / 4;
         int lbrick2 = (length % 4) / 2;
         int lbrick1 = (length % 2);
@@ -23,22 +23,36 @@ public class LegoHouseFactory {
         int wbrick4 = width / 4;
         int wbrick2 = (width % 4) / 2;
         int wbrick1 = (width % 2);
-        System.out.println(lbrick4 + " " + lbrick2 + " " + lbrick1 + "\n" + wbrick4 + " " + wbrick2 + " " + wbrick1);
-        OrderMapper.createOrder(user);
-        int orderId = OrderMapper.getOrder(user);
-        OrderMapper.createLineItem(user.getId(), lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1, height);
+        lbrick4 = lbrick4 * height;
+        lbrick2 = lbrick2 * height;
+        lbrick1 = lbrick1 * height;
+        wbrick4 = wbrick4 * height;
+        wbrick2 = wbrick2 * height;
+        wbrick1 = wbrick1 * height;
+        FloorLayOut floorLayOut = new FloorLayOut(lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1);
         
+//        OrderMapper.createOrder(user);
+//        int orderId = OrderMapper.getOrder(user);
+//        OrderMapper.createLineItem(orderId, lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1, height);
+//        OrderMapper.closeOrder(user);
+//        List<LineItem> list = OrderMapper.getLineItems(orderId);
+        return floorLayOut;
+        
+    }
+    
+    public static List<Order> getOrders()throws LegoHouseException{
+        return OrderMapper.getOrders();
     }
 
-    public static void main(String[] args) throws LegoHouseException {
-        
-        User user = UserMapper.login("nicolai@bakke.net", "bakke");
-        List<LineItem> list = OrderMapper.getLineItems(user.getId());
-        for(int i = 0; i< list.size(); i++){
-            System.out.println(list.get(i).toString());
-        }
-        //LegoHouseFactory.buildLegoHouse(user, 13, 12, 3);
-    }
+//    public static void main(String[] args) throws LegoHouseException {
+//        
+//        User user = UserMapper.login("nicolai@bakke.net", "bakke");
+//        List<LineItem> list = OrderMapper.getLineItems(user.getId());
+//        for(int i = 0; i< list.size(); i++){
+//            System.out.println(list.get(i).toString());
+//        }
+//        //LegoHouseFactory.buildLegoHouse(user, 13, 12, 3);
+//    }
     
     
     
