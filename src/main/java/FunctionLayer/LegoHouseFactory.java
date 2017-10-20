@@ -30,8 +30,8 @@ public class LegoHouseFactory {
         wbrick2 = wbrick2 * height;
         wbrick1 = wbrick1 * height;
         FloorLayOut floorLayOut = new FloorLayOut(lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1);
+        OrderMapper.createOrder(user, length, width, height);
         
-//        OrderMapper.createOrder(user);
 //        int orderId = OrderMapper.getOrder(user);
 //        OrderMapper.createLineItem(orderId, lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1, height);
 //        OrderMapper.closeOrder(user);
