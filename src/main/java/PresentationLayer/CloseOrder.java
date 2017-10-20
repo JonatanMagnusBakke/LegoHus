@@ -16,14 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jonatan
  */
-public class ShowOrders extends Command{
+public class CloseOrder extends Command{
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LegoHouseException {
-        if(request.getParameter("orderId") != null){
-            OrderMapper.closeOrder(Integer.parseInt(request.getParameter("orderId")));
-            
-        }
+        request.removeAttribute("Orders");
+        OrderMapper.closeOrder(Integer.parseInt(request.getParameter("orderId")));
         List<Order> list = OrderMapper.getOrders();
         request.setAttribute("Orders", list);
         return "AllOrders";

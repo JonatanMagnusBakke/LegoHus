@@ -14,14 +14,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Orders</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>LegoHouse Orders</h1>
         <%
             for(int i = 0; i < list.size() ; i++){
         %>
-        <h1><%= list.get(i).toString() %></h1>
+        <form action="FrontController" method="POST">
+            <input type="hidden" name="command" value="ShowOrders">
+            <input type="hidden" name="orderId" value="<%= list.get(i).getId() %>">
+            <%= list.get(i).toString() %> <br>
+            <input type="submit" value="Close">
+        </form>
+        
+        
         <%
             }
         %>

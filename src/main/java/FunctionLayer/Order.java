@@ -12,11 +12,17 @@ package FunctionLayer;
 public class Order {
     private int id;
     private int userid;
+    private int legohouselength;
+    private int legohousewidth;
+    private int legohouseheigth;
     private String currentStatus;
 
-    public Order(int id, int userid, String currentStatus) {
+    public Order(int id, int userid, int legohouselength, int legohousewidth, int legohouseheigth, String currentStatus) {
         this.id = id;
         this.userid = userid;
+        this.legohouselength = legohouselength;
+        this.legohousewidth = legohousewidth;
+        this.legohouseheigth = legohouseheigth;
         this.currentStatus = currentStatus;
     }
 
@@ -28,13 +34,26 @@ public class Order {
         return userid;
     }
 
+    public int getLegohouselength() {
+        return legohouselength;
+    }
+
+    public int getLegohousewidth() {
+        return legohousewidth;
+    }
+
+    public int getLegohouseheigth() {
+        return legohouseheigth;
+    }
+
     public String getCurrentStatus() {
         return currentStatus;
     }
 
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", userid=" + userid + ", currentStatus=" + currentStatus + '}';
+        return "Order{" + "id=" + id + ", userid=" + userid + ", legohouselength=" + legohouselength + ", legohousewidth=" + legohousewidth + ", legohouseheigth=" + legohouseheigth + ", currentStatus=" + currentStatus + '}';
     }
+    
     
 }

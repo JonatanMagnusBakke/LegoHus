@@ -31,17 +31,16 @@ public class LegoHouseFactory {
         wbrick1 = wbrick1 * height;
         FloorLayOut floorLayOut = new FloorLayOut(lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1);
         OrderMapper.createOrder(user, length, width, height);
-        
-//        int orderId = OrderMapper.getOrder(user);
-//        OrderMapper.createLineItem(orderId, lbrick4, lbrick2, lbrick1, wbrick4, wbrick2, wbrick1, height);
-//        OrderMapper.closeOrder(user);
-//        List<LineItem> list = OrderMapper.getLineItems(orderId);
         return floorLayOut;
         
     }
     
     public static List<Order> getOrders()throws LegoHouseException{
         return OrderMapper.getOrders();
+    }
+    
+    public static void closeOrder(int orderId) throws LegoHouseException {
+        OrderMapper.closeOrder(orderId);
     }
 
 //    public static void main(String[] args) throws LegoHouseException {

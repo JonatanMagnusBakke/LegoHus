@@ -6,7 +6,6 @@
 
 <%@page import="FunctionLayer.FloorLayOut"%>
 <%@page import="java.util.List"%>
-<%@page import="FunctionLayer.LineItem"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     FloorLayOut list = (FloorLayOut)request.getAttribute("LineItems");

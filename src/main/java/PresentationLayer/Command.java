@@ -2,6 +2,8 @@ package PresentationLayer;
 
 import FunctionLayer.LegoHouseException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,10 +22,13 @@ abstract class Command {
         commands.put( "register", new Register() );
         commands.put("PlaceOrder", new PlaceOrder());
         commands.put("ShowOrders", new ShowOrders());
+        commands.put("CloseOrder", new CloseOrder());
     }
 
     static Command from( HttpServletRequest request ) {
         String commandName = request.getParameter( "command" );
+        
+        System.out.println(commandName);
         if ( commands == null ) {
             initCommands();
         }

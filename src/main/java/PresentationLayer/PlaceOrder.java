@@ -9,7 +9,6 @@ import DBAccess.OrderMapper;
 import FunctionLayer.FloorLayOut;
 import FunctionLayer.LegoHouseException;
 import FunctionLayer.LegoHouseFactory;
-import FunctionLayer.LineItem;
 import FunctionLayer.User;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;

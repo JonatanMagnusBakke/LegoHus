@@ -28,5 +28,11 @@
             <input type="submit" value="Submit">
         </form>
         
+        <form name="ShowOrders" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="ShowOrders">
+            Show Orders <br>
+            <input type="submit" value="Submit">
+        </form>
+        
     </body>
 </html>

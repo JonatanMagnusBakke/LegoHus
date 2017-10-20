@@ -6,7 +6,6 @@
 package DBAccess;
 
 import FunctionLayer.LegoHouseException;
-import FunctionLayer.LineItem;
 import FunctionLayer.Order;
 import FunctionLayer.User;
 import java.sql.Connection;
@@ -57,14 +56,25 @@ public class OrderMapper {
         Statement stm;
         try {
             stm = Connector.connection().createStatement();
-            String sql = "SELECT * FROM orders";
+            String sql = "SELECT * FROM orders WHERE currentStatus = 'Open'";
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
-                orderList.add(new Order(rs.getInt("id"), rs.getInt("userid"), rs.getString("currentStatus")));
+                orderList.add(new Order(rs.getInt("id"), rs.getInt("userid"), rs.getInt("legohouselength"), rs.getInt("legohousewidth"), rs.getInt("legohouseheight"), rs.getString("currentStatus")));
             }
             return orderList;
         } catch ( ClassNotFoundException | SQLException ex ) {
             throw new LegoHouseException(ex.getMessage());
+        }
+    }
+    
+    public static void closeOrder(int orderId)throws LegoHouseException{
+        try {
+            String sql = "UPDATE orders SET currentStatus = 'Closed' WHERE id = ?;";
+            PreparedStatement userPstmt = Connector.connection().prepareStatement(sql);
+            userPstmt.setInt(1, orderId);
+            userPstmt.executeUpdate();
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LegoHouseException( ex.getMessage() );
         }
     }
     
