@@ -20,6 +20,9 @@ public class ShowOrders extends Command{
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LegoHouseException {
+        
+        
+        
         if(request.getParameter("orderId") != null){
             OrderMapper.closeOrder(Integer.parseInt(request.getParameter("orderId")));
             

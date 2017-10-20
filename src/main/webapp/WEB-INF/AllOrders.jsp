@@ -21,10 +21,19 @@
         <%
             for(int i = 0; i < list.size() ; i++){
         %>
+        <%= list.get(i).toString() %>
+        <form name="PlaceOrder" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="PlaceOrder">
+            <input type="hidden" name="length" value="<%= list.get(i).getLegohouselength() %>">
+            <input type="hidden" name="width" value="<%= list.get(i).getLegohousewidth() %>">
+            <input type="hidden" name="height" value="<%= list.get(i).getLegohouseheigth() %>">
+            <input type="submit" value="Brick list">
+        </form>
+        
         <form action="FrontController" method="POST">
             <input type="hidden" name="command" value="ShowOrders">
             <input type="hidden" name="orderId" value="<%= list.get(i).getId() %>">
-            <%= list.get(i).toString() %> <br>
+            
             <input type="submit" value="Close">
         </form>
         
